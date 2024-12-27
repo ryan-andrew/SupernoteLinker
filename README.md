@@ -1,3 +1,7 @@
+<p align="center">
+<img src="docs/supernote_linker.png" alt="App Screenshot" width="200"/>
+</p>
+
 # Supernote Linker
 
 #### Supernote Linker allows you to add links to your drawings from within your notes!
