@@ -47,7 +47,8 @@ class PaintFileBrowserViewModel @Inject constructor() : ViewModel() {
 
     fun navigateToDirectory(directory: FileSystemItem.Directory?) {
         viewModelScope.launch {
-            _currentDirectory.value = directory ?: FileSystem.getAllFiles()!!
+            _currentDirectory.value = directory ?: FileSystem.getAllFiles()
+                    ?: FileSystemItem.Directory.empty
             _visibleItems.value = currentSortedChildren.take(numItemsPerPage)
             _currentPageIndex.value = 1
         }

@@ -19,6 +19,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material3.Button
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -35,6 +36,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import dev.ryanandrew.supernotelinker.R
 import dev.ryanandrew.supernotelinker.link.fs.FileSystemItem
@@ -42,6 +44,7 @@ import dev.ryanandrew.supernotelinker.link.fs.FileSystemItem
 @Composable
 fun PaintFileBrowser(
     onFileChosen: (String) -> Unit,
+    onCancel: () -> Unit,
     viewModel: PaintFileBrowserViewModel = hiltViewModel()
 ) {
     val currentDirectory by viewModel.currentDirectory.collectAsState()
@@ -60,20 +63,17 @@ fun PaintFileBrowser(
 
         HorizontalDivider(modifier = Modifier.fillMaxWidth(), thickness = 1.dp, color = Color.Black)
 
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(3),
-            contentPadding = PaddingValues(16.dp),
-        ) {
-            items(visibleItems) { item ->
-                when (item) {
-                    is FileSystemItem.File -> {
-                        FileItem(item, onClick = { onFileChosen(it.path) })
-                    }
-                    is FileSystemItem.Directory -> {
-                        DirectoryItem(item, onClick = { viewModel.navigateToDirectory(it) })
-                    }
-                }
-            }
+        if (currentDirectory.isRootDir && currentDirectory.children.isEmpty()) {
+            Spacer(modifier = Modifier.weight(1f))
+            NoFilesFound(
+                onCancel = onCancel
+            )
+        } else {
+            FilePickerGrid(
+                visibleItems = visibleItems,
+                onFileChosen = onFileChosen,
+                viewModel = viewModel
+            )
         }
 
         Spacer(modifier = Modifier.weight(1f))
@@ -96,6 +96,54 @@ fun Header() {
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth()
         )
+    }
+}
+
+@Composable
+fun NoFilesFound(
+    onCancel: () -> Unit
+) {
+    Column {
+        Text(
+            text = "You have no drawing files!",
+            style = MaterialTheme.typography.bodyLarge,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth()
+        )
+        Button(
+            onClick = { onCancel() },
+            modifier = Modifier.padding(8.dp).align(Alignment.CenterHorizontally)
+        ) {
+            Text(
+                text = "Close App",
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.White
+            )
+        }
+    }
+}
+
+@Composable
+fun FilePickerGrid(
+    visibleItems: List<FileSystemItem>,
+    onFileChosen: (String) -> Unit,
+    viewModel: PaintFileBrowserViewModel
+) {
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(3),
+        contentPadding = PaddingValues(16.dp),
+    ) {
+        items(visibleItems) { item ->
+            when (item) {
+                is FileSystemItem.File -> {
+                    FileItem(item, onClick = { onFileChosen(it.path) })
+                }
+                is FileSystemItem.Directory -> {
+                    DirectoryItem(item, onClick = { viewModel.navigateToDirectory(it) })
+                }
+            }
+        }
     }
 }
 
