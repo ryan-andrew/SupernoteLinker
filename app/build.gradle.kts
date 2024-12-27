@@ -75,6 +75,13 @@ android {
             isUniversalApk = false
         }
     }
+    applicationVariants.all {
+        val variant = this
+        variant.outputs.all {
+            val output = this as com.android.build.gradle.internal.api.BaseVariantOutputImpl
+            output.outputFileName = "SupernoteLinker_${variant.versionName}_${variant.buildType.name}.apk"
+        }
+    }
 }
 
 dependencies {
