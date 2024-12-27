@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -6,6 +8,13 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.kotlin.serialization)
 }
+
+val signingProperties = File(rootDir, "signing.properties")
+    .takeIf { it.exists() }
+    ?.inputStream()
+    ?.use {
+        Properties().apply { load(it) }
+    }
 
 android {
     namespace = "dev.ryanandrew.supernotelinker"
@@ -20,14 +29,25 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-
+    signingConfigs {
+        create("release") {
+            val storeFilePath = signingProperties?.getProperty("storeFile")
+            storeFile = storeFilePath?.let { File(it) }
+            storePassword = signingProperties?.getProperty("storePassword")
+            keyAlias = signingProperties?.getProperty("keyAlias")
+            keyPassword = signingProperties?.getProperty("keyPassword")
+        }
+    }
     buildTypes {
         release {
-            isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            isMinifyEnabled = true
+            isDebuggable = false
+            isShrinkResources = true
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {
@@ -39,6 +59,21 @@ android {
     }
     buildFeatures {
         compose = true
+    }
+    splits {
+        abi {
+            isEnable = true
+            reset()
+            // Supernote Android will only ever be 64-bit ARM, so release versions can just
+            //  include arm64-v8a
+            val isRelease =
+                project.gradle.startParameter.taskNames.any { it.contains("Release", true) }
+            when (isRelease) {
+                true -> include("arm64-v8a")
+                false -> include("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
+            }
+            isUniversalApk = false
+        }
     }
 }
 
