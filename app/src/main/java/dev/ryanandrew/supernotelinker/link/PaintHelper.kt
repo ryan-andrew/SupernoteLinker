@@ -40,6 +40,12 @@ class PaintHelper @Inject constructor(
         context.startActivity(intent)
     }
 
+    val isPaintAppInstalled: Boolean
+        get () = runCatching {
+            context.packageManager.getPackageInfo(PAINT_PACKAGE, 0)
+            true
+        }.getOrDefault(false)
+
     @OptIn(ExperimentalContracts::class)
     fun isPaintFileValid(filePath: String?): Boolean {
         contract {

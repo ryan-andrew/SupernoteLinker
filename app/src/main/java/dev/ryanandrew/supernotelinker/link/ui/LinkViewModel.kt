@@ -26,6 +26,7 @@ class LinkViewModel @Inject constructor(
     fun getInitialState(keyword: String): LinkActivityState {
         this.keyword = keyword
         return when {
+            !paintHelper.isPaintAppInstalled -> LinkActivityState.AppNotInstalled
             filePermissionManager.needsPermission -> LinkActivityState.Permission
             tryOpenFile(storedFileManager[keyword]) -> LinkActivityState.Finished
             else -> LinkActivityState.ChooseFile
@@ -59,6 +60,14 @@ class LinkViewModel @Inject constructor(
     fun onCancel() {
         _state.value = LinkActivityState.Finished
     }
+
+    fun onAppInstalled() {
+        _state.value = when {
+            filePermissionManager.needsPermission -> LinkActivityState.Permission
+            tryOpenFile(storedFileManager[keyword]) -> LinkActivityState.Finished
+            else -> LinkActivityState.ChooseFile
+        }
+    }
 }
 
 @Serializable
@@ -66,5 +75,6 @@ sealed interface LinkActivityState {
     @Serializable data object Uninitialized : LinkActivityState
     @Serializable data object Permission : LinkActivityState
     @Serializable data object ChooseFile : LinkActivityState
+    @Serializable data object AppNotInstalled : LinkActivityState
     @Serializable data object Finished : LinkActivityState
 }

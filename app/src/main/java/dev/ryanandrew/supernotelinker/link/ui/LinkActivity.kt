@@ -10,9 +10,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import dev.ryanandrew.supernotelinker.common.keyword
-import dev.ryanandrew.supernotelinker.common.log
 import dev.ryanandrew.supernotelinker.link.FilePermissionManager
 import dev.ryanandrew.supernotelinker.link.PaintHelper
+import dev.ryanandrew.supernotelinker.link.ui.notinstalled.AppNotInstalledScreen
 import dev.ryanandrew.supernotelinker.link.ui.permission.PermissionScreen
 import dev.ryanandrew.supernotelinker.link.ui.paint.PaintFileBrowser
 import kotlinx.coroutines.flow.filterNot
@@ -65,6 +65,16 @@ class LinkActivity : ComponentActivity() {
                         },
                         onCancel = {
                             viewModel.onCancel()
+                        }
+                    )
+                }
+                composable<LinkActivityState.AppNotInstalled> {
+                    AppNotInstalledScreen(
+                        onClose = {
+                            viewModel.onCancel()
+                        },
+                        onInstalled = {
+                            viewModel.onAppInstalled()
                         }
                     )
                 }
