@@ -59,7 +59,7 @@ shown.
 
 10. That's it! Now the link in your note file will open your drawing!
 
-    <img src="docs/videos/link.gif" alt="App Screenshot" width="300"/>
+    <img src="docs/videos/link.gif" alt="App Screenshot" width="400"/>
 
 
 ## Creating Popup Messages
