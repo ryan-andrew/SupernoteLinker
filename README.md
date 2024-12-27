@@ -4,7 +4,7 @@
 
 <img src="docs/videos/link.gif" alt="App Screenshot" width="400"/>
 
-## Linking Drawing
+## Linking a Drawing
 
 ### Initial Link Setup Tutorial
 
@@ -12,7 +12,7 @@ There are some extra steps needed when setting up a link for the first time. You
 the default handler for its links, and you will need to grant file permissions so that it can open the drawing files.
 Here is a detailed breakdown of how to set up your first link!
 
-1. Select something that you wish to have link to a drawing and tap to create a link.
+1. Select something that you want to make into a link to your drawing.
     
     <img src="docs/screenshots/link/link_flow_1_circle_link.png" alt="App Screenshot" width="300"/>
 
