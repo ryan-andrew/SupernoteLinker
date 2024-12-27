@@ -2,14 +2,14 @@
 
 Supernote Linker allows you to add links to your Atelier drawings from within your notes!
 
-[![Link Video](docs/videos/link_video_thumbnail.jpg)](docs/videos/link.mp4)
+<video src="docs/videos/link.mp4" width="300"></video>
 
 ## Linking Drawing
 
 
 ### Video
 
-[![Link Setup Video](docs/videos/link_setup_video_thumbnail.jpg)](docs/videos/link_setup.mp4)
+<video src="docs/videos/link_setup.mp4" width="300"></video>
 
 ### Screenshots
 
@@ -34,4 +34,4 @@ Another feature of Supernote Linker is the ability to have a link that shows a p
 
 ### Video
 
-[![Popup Video](docs/videos/popup_video_thumbnail.jpg)](docs/videos/popup.mp4)
+<video src="docs/videos/popup.mp4" width="300"></video>
