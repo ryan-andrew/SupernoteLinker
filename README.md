@@ -1,8 +1,6 @@
 <p align="center">
-<img src="docs/supernote_linker.png" alt="App Screenshot" width="300"/>
+<img src="docs/supernote_linker.png" alt="App Screenshot" width="200"/>
 </p>
-
-<img src="docs/supernote_linker.png" alt="App Screenshot" width="300" style="display: block; margin-left: auto; margin-right: auto;" />
 
 # Supernote Linker
 
