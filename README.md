@@ -1,3 +1,5 @@
+![supernote_linker.png](docs%2Fsupernote_linker.png)
+
 # Supernote Linker
 
 #### Supernote Linker allows you to add links to your drawings from within your notes!
