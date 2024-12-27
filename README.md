@@ -75,4 +75,4 @@ link, do the following:
 
 ### In Action
 
-<img src="docs/videos/popup.gif" alt="App Screenshot" width=400/>
+<img src="docs/videos/popup.gif" alt="App Screenshot" width="400" height="300"/>
