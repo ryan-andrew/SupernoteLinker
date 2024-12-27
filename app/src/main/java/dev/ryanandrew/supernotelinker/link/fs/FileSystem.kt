@@ -97,6 +97,7 @@ sealed class FileSystemItem {
 
         companion object {
             val empty = Directory("", null, 0)
+            val nullDirectory = Directory("", null, -1)
         }
     }
 }

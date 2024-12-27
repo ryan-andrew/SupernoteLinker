@@ -63,7 +63,7 @@ fun PaintFileBrowser(
 
         HorizontalDivider(modifier = Modifier.fillMaxWidth(), thickness = 1.dp, color = Color.Black)
 
-        if (currentDirectory.isRootDir && currentDirectory.children.isEmpty()) {
+        if (currentDirectory == FileSystemItem.Directory.nullDirectory) {
             Spacer(modifier = Modifier.weight(1f))
             NoFilesFound(
                 onCancel = onCancel
