@@ -67,7 +67,7 @@ shown.
 
 ### Creating a drawing link
 
-https://github.com/user-attachments/assets/b73c9fe3-fa4a-4417-bb8f-f6991e3812cc
+<video src="https://github.com/user-attachments/assets/b73c9fe3-fa4a-4417-bb8f-f6991e3812cc"></video>
 
 ## Creating Popup Messages
 
