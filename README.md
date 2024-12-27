@@ -2,7 +2,7 @@
 
 #### Supernote Linker allows you to add links to your drawings from within your notes!
 
-<img src="docs/videos/link.gif" alt="App Screenshot" width=500/>
+<img src="docs/videos/link.gif" alt="App Screenshot" width=400/>
 
 ## Linking Drawing
 
@@ -75,4 +75,4 @@ link, do the following:
 
 ### In Action
 
-<img src="docs/videos/popup.gif" alt="App Screenshot" width=500/>
+<img src="docs/videos/popup.gif" alt="App Screenshot" width=400/>
