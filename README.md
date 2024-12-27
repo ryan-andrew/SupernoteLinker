@@ -1,4 +1,6 @@
-![supernote_linker.png](docs%2Fsupernote_linker.png)
+<div style="text-align: center;">
+<img src="docs/supernote_linker.png" alt="App Screenshot" width="300"/>
+</div>
 
 # Supernote Linker
 
