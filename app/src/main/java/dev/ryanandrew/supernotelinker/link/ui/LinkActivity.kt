@@ -13,6 +13,7 @@ import dev.ryanandrew.supernotelinker.common.keyword
 import dev.ryanandrew.supernotelinker.link.PaintHelper
 import dev.ryanandrew.supernotelinker.link.ui.permission.PermissionScreen
 import dev.ryanandrew.supernotelinker.link.ui.paint.PaintFileBrowser
+import kotlinx.coroutines.flow.filterNot
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -24,7 +25,7 @@ class LinkActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val initialState = viewModel.init(keyword!!)
+        val initialState = viewModel.getInitialState(keyword!!)
         if (initialState is LinkActivityState.Finished) {
             finish()
             return
@@ -33,7 +34,9 @@ class LinkActivity : ComponentActivity() {
             val navController = rememberNavController()
 
             LaunchedEffect(Unit) {
-                viewModel.state.collect { state ->
+                viewModel.state.filterNot {
+                    it is LinkActivityState.Uninitialized
+                }.collect { state ->
                     when (state) {
                         LinkActivityState.Finished -> finish()
                         else -> navController.navigate(state)

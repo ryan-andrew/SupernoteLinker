@@ -17,13 +17,13 @@ class LinkViewModel @Inject constructor(
     private val storedFileManager: StoredFileManager,
     private val paintHelper: PaintHelper,
 ) : ViewModel() {
-    private val _state = MutableStateFlow<LinkActivityState>(LinkActivityState.Permission)
+    private val _state = MutableStateFlow<LinkActivityState>(LinkActivityState.Uninitialized)
     val state: StateFlow<LinkActivityState> = _state.asStateFlow()
 
     private var storedFilePath: String? = null
     private lateinit var keyword: String
 
-    fun init(keyword: String): LinkActivityState {
+    fun getInitialState(keyword: String): LinkActivityState {
         this.keyword = keyword
         return when {
             filePermissionManager.needsPermission -> LinkActivityState.Permission
@@ -59,6 +59,7 @@ class LinkViewModel @Inject constructor(
 
 @Serializable
 sealed interface LinkActivityState {
+    @Serializable data object Uninitialized : LinkActivityState
     @Serializable data object Permission : LinkActivityState
     @Serializable data object ChooseFile : LinkActivityState
     @Serializable data object Finished : LinkActivityState
