@@ -61,6 +61,9 @@ shown.
 
     <img src="docs/videos/link.gif" alt="App Screenshot" width="400"/>
 
+### Creating a drawing link
+
+https://github.com/user-attachments/assets/b73c9fe3-fa4a-4417-bb8f-f6991e3812cc
 
 ## Creating Popup Messages
 
