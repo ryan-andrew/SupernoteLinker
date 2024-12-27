@@ -1,6 +1,5 @@
 package dev.ryanandrew.supernotelinker.link.ui.permission
 
-import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.ryanandrew.supernotelinker.link.FilePermissionManager
@@ -28,13 +27,13 @@ class PermissionScreenViewModel @Inject constructor(
         }
     }
 
-    @SuppressLint("NewApi") // TODO
     fun requestPermission() {
-        filePermissionManager.grantFilePermission()
+        _uiState.value = PermissionScreenState.RequestPermission
     }
 }
 
 sealed interface PermissionScreenState {
     data object NeedsPermission : PermissionScreenState
+    data object RequestPermission : PermissionScreenState
     data object PermissionGranted : PermissionScreenState
 }

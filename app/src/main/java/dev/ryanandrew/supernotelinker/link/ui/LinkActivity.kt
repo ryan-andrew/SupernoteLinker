@@ -10,6 +10,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import dev.ryanandrew.supernotelinker.common.keyword
+import dev.ryanandrew.supernotelinker.common.log
+import dev.ryanandrew.supernotelinker.link.FilePermissionManager
 import dev.ryanandrew.supernotelinker.link.PaintHelper
 import dev.ryanandrew.supernotelinker.link.ui.permission.PermissionScreen
 import dev.ryanandrew.supernotelinker.link.ui.paint.PaintFileBrowser
@@ -22,6 +24,9 @@ class LinkActivity : ComponentActivity() {
 
     @Inject
     lateinit var paintHelper: PaintHelper
+
+    @Inject
+    lateinit var filePermissionManager: FilePermissionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +52,7 @@ class LinkActivity : ComponentActivity() {
             NavHost(navController = navController, startDestination = initialState) {
                 composable<LinkActivityState.Permission> {
                     PermissionScreen(
+                        filePermissionManager = filePermissionManager,
                         onPermissionGranted = {
                             viewModel.onPermissionGranted()
                         }
@@ -56,6 +62,9 @@ class LinkActivity : ComponentActivity() {
                     PaintFileBrowser(
                         onFileChosen = {
                             viewModel.onFileChosen(it)
+                        },
+                        onCancel = {
+                            viewModel.onCancel()
                         }
                     )
                 }

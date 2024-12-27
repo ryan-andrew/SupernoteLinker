@@ -1,5 +1,8 @@
 package dev.ryanandrew.supernotelinker.common
 
+import android.app.Activity
+import android.content.Context
+import android.content.ContextWrapper
 import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -37,3 +40,12 @@ fun OnResume(block: () -> Unit) {
 fun log(message: String) {
     Log.e("!!!!!", message)
 }
+
+tailrec fun Context.getActivityOrNull(): Activity? = when (this) {
+    is Activity -> this
+    is ContextWrapper -> baseContext.getActivityOrNull()
+    else -> null
+}
+
+fun Context.getActivity(): Activity = getActivityOrNull()
+    ?: throw IllegalStateException("Not in the context of an Activity")

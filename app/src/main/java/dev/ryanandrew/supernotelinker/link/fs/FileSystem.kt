@@ -1,6 +1,7 @@
 package dev.ryanandrew.supernotelinker.link.fs
 
 import android.os.Environment
+import dev.ryanandrew.supernotelinker.common.log
 import dev.ryanandrew.supernotelinker.link.PaintHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -16,7 +17,6 @@ object FileSystem {
         val children = mutableListOf<FileSystemItem>()
         val directoryModel =
             FileSystemItem.Directory(directory.path, parent, directory.lastModified(), children)
-
         directory.listFiles()?.forEach { file ->
             if (file.isDirectory) {
                 val subDir = getAllFiles(file, directoryModel)

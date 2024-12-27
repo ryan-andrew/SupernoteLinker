@@ -14,31 +14,41 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import dev.ryanandrew.supernotelinker.common.OnResume
+import dev.ryanandrew.supernotelinker.common.getActivity
+import dev.ryanandrew.supernotelinker.link.FilePermissionManager
 
 @Composable
 fun PermissionScreen(
     onPermissionGranted: () -> Unit,
+    filePermissionManager: FilePermissionManager,
     viewModel: PermissionScreenViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val activity = LocalContext.current.getActivity()
 
     OnResume {
         viewModel.checkPermission()
     }
 
     LaunchedEffect(uiState) {
-        if (uiState is PermissionScreenState.PermissionGranted) {
-            onPermissionGranted() // Perform the side effect only once
+        when (uiState) {
+            PermissionScreenState.PermissionGranted -> {
+                onPermissionGranted()
+            }
+            PermissionScreenState.RequestPermission -> {
+                filePermissionManager.grantFilePermission(activity)
+            }
+            PermissionScreenState.NeedsPermission -> {}
         }
     }
 
-    // A simple Material theme with large text and a professional layout.
     Column(
         modifier = Modifier
             .fillMaxSize()

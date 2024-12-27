@@ -55,6 +55,10 @@ class LinkViewModel @Inject constructor(
             _state.value = LinkActivityState.Finished
         }
     }
+
+    fun onCancel() {
+        _state.value = LinkActivityState.Finished
+    }
 }
 
 @Serializable
