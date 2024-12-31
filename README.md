@@ -1,10 +1,12 @@
 <p align="center">
 <img src="docs/supernote_linker.png" alt="App Screenshot" width="200"/>
-</p>
 
 # Supernote Linker
 
-#### Supernote Linker allows you to add links to your drawings from within your notes!
+</p>
+
+
+#### Supernote Linker allows you to add links to your Atelier drawings from within your notes!
 
 <img src="docs/videos/link.gif" alt="App Screenshot" width="400"/>
 
