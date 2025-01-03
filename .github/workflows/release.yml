@@ -47,7 +47,7 @@ jobs:
         env:
           KEYSTORE_FILE_BASE64: ${{ secrets.KEYSTORE_FILE_BASE64 }}
         run: |
-          echo "$KEYSTORE_FILE_BASE64" | base64 -d > $GITHUB_WORKSPACE/ryan-andrew.jks
+          echo "$KEYSTORE_FILE_BASE64" | base64 -d > $GITHUB_WORKSPACE/app/ryan-andrew.jks
 
       - name: Decrypt signing properties
         env:
@@ -63,7 +63,7 @@ jobs:
 
       - name: Clean up sensitive files
         run: |
-          rm -f $GITHUB_WORKSPACE/signing.properties
+          rm -f $GITHUB_WORKSPACE/app/signing.properties
           rm -f $GITHUB_WORKSPACE/ryan-andrew.jks
 
       - name: Upload Release Artifact
