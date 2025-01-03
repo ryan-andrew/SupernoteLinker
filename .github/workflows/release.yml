@@ -9,7 +9,8 @@ jobs:
   build:
     name: Build and Release APK
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: write
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -60,8 +61,8 @@ jobs:
 
       - name: Clean up sensitive files
         run: |
-          rm -f $GITHUB_WORKSPACE/signing.properties
-          rm -f $GITHUB_WORKSPACE/app/ryan-andrew.jks
+          rm -f app/keystore/ryan-andrew.jks
+          rm -f app/signing.properties
 
       - name: Upload Release Artifact
         uses: actions/upload-artifact@v4
