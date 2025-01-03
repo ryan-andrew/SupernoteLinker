@@ -5,7 +5,6 @@
 
 </div>
 
-
 #### Supernote Linker allows you to add links to your Atelier drawings from within your notes!
 
 <img src="docs/videos/link.gif" alt="App Screenshot" width="400"/>
