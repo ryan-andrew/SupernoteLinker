@@ -9,13 +9,6 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
-val signingProperties = File(rootDir, "signing.properties")
-    .takeIf { it.exists() }
-    ?.inputStream()
-    ?.use {
-        Properties().apply { load(it) }
-    }
-
 android {
     namespace = "dev.ryanandrew.supernotelinker"
     compileSdk = 35
@@ -31,11 +24,15 @@ android {
     }
     signingConfigs {
         create("release") {
-            val storeFilePath = signingProperties?.getProperty("storeFile")
-            storeFile = storeFilePath?.let { File(it) }
-            storePassword = signingProperties?.getProperty("storePassword")
-            keyAlias = signingProperties?.getProperty("keyAlias")
-            keyPassword = signingProperties?.getProperty("keyPassword")
+            val signingProperties = file("signing.properties")
+            if (signingProperties.exists()) {
+                val props = Properties()
+                props.load(signingProperties.inputStream())
+                storeFile = file(props.getProperty("storeFile"))
+                storePassword = props.getProperty("storePassword")
+                keyAlias = props.getProperty("keyAlias")
+                keyPassword = props.getProperty("keyPassword")
+            }
         }
     }
     buildTypes {
